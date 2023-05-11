@@ -45,10 +45,7 @@ def plot_campaign_data(filtered_df,campaign_name, target_columns,selected_column
 
     # データを日別に集計
     daily_df = campaign_df.groupby([col for col in campaign_df.columns if col != "期間"]).mean()
-    
-
-    # 日別進捗数値の欠損値を線形補間
-    daily_df = daily_df.interpolate(method="linear",limit_direction='both')
+   
 
     #  reset index to make it unique
     daily_df = daily_df.reset_index()
