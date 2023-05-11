@@ -7,7 +7,7 @@ from dateutil.relativedelta import relativedelta
 from sklearn.linear_model import LinearRegression
 import calendar
 from PIL import Image
-st.write(pd.__version__)
+
 image = Image.open('for twitter.png')
 st.image(image,use_column_width=True)
 image2 = Image.open('beta.png')
