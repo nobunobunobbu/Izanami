@@ -48,7 +48,7 @@ def plot_campaign_data(filtered_df,campaign_name, target_columns,selected_column
 
     # 日別進捗数値の欠損値を線形補間
     daily_df.reset_index(inplace=True)
-　　daily_df = daily_df.interpolate(method='linear')
+    daily_df = daily_df.interpolate(method='linear')
 
     #  reset index to make it unique
     daily_df = daily_df.reset_index()
