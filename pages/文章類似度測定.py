@@ -27,7 +27,8 @@ def main():
         # コサイン類似度を計算します。
         cosine_sim = get_cosine_sim(text1, text2)
         # 結果を表示します。
-        st.write("類似度：{}%".format(round(cosine_sim*100, 2)))
+        st.write("","","")
+        st.write("類似度：<b>{}%</b>".format(round(cosine_sim*100, 2)), unsafe_allow_html=True)
 
 if __name__ == '__main__':
     main()
