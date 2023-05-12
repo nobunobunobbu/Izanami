@@ -18,9 +18,13 @@ def main():
     uploaded_file2 = st.file_uploader("画像2", type=['png', 'jpg'])
 
     if uploaded_file1 is not None and uploaded_file2 is not None:
+        try:
         # 画像を読み込む
-        image1 = Image.open(uploaded_file1)
-        image2 = Image.open(uploaded_file2)
+         image1 = Image.open(uploaded_file1)
+         image2 = Image.open(uploaded_file2)
+
+        except Image.DecompressionBombError:
+          st.error("アップロードしたファイルの容量が大きすぎます。")
 
         # 画像の表示
         st.image([image1, image2], caption=['Image 1', 'Image 2'], width=300)
@@ -33,7 +37,8 @@ def main():
             similarity = (len(image1_hash) - hamming_distance) / len(image1_hash) * 100
 
             # 結果の表示
-            st.write(f'類似度: {similarity}%')
+            st.write("","","")
+            st.write(f'類似度:  <b>{similarity}%</b>', unsafe_allow_html=True)
 
 if __name__ == '__main__':
     main()
