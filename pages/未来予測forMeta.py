@@ -48,6 +48,8 @@ def plot_campaign_data(filtered_df,campaign_name, target_columns,selected_column
     # データを日別に集計
     daily_df = campaign_df.groupby([col for col in campaign_df.columns if col != "レポート開始日"]).mean()
 
+    # 日別進捗数値の欠損値を線形補間
+    daily_df = daily_df.interpolate(method='linear',limit_direction='both')
 
     #  reset index to make it unique
     daily_df = daily_df.reset_index()
@@ -77,23 +79,6 @@ def plot_campaign_data(filtered_df,campaign_name, target_columns,selected_column
             predictions = model.predict(future_range)[len(train_data):]
             predictions = np.maximum(predictions,0)
 
-            if target_column == "消化金額 (JPY)":
-    # 実績値の合計を計算
-             actual_sum = round(campaign_df[target_column].sum())
-    # 予測値の合計を計算
-             pred_sum = round(predictions.sum())
-    # 実績値と予測値の合計を足し合わせる
-             total = round(actual_sum + pred_sum)
-             rate = round(total/amount*100,4)
-    # 合計値を表示する
-             st.write("","","")
-             st.write("実績値合計:￥ {:,.0f}  N".format(actual_sum))
-             st.write("予想着地金額: ￥{:,.0f} N".format(total))
-             if rate >= 100:
-              st.write("予想着地率：<span style='color: blue;'><b>{:,.2f}%</span></b>".format(rate), unsafe_allow_html=True)
-             else:
-              st.write("予想着地率：<span style='color: red;'><b>{:,.2f}%</span></b>".format(rate), unsafe_allow_html=True)
-
 
      # 予測結果をグラフで表示
             predicted_dates = pd.date_range(start=max_date + pd.Timedelta(days=1), periods=len(future_df), freq='D')
@@ -111,7 +96,7 @@ def plot_campaign_data(filtered_df,campaign_name, target_columns,selected_column
             predicted_df = predicted_df.rename(columns={"予測値": "レポート開始日"})
 
 
-            if target_column == "1,000インプレッションあたりのコスト":
+            if target_column == "CPM":
            # 実績値と予測値の合計を計算
              actual_sum = campaign_df[target_column].sum()
              pred_sum = predictions.sum()    
@@ -121,7 +106,7 @@ def plot_campaign_data(filtered_df,campaign_name, target_columns,selected_column
              st.write("","","")
              st.write("予想着地単価:￥ <b>{:,.2f}</b> N".format(avg), unsafe_allow_html=True)     
 
-            elif target_column == "リンククリックあたりのコスト":
+            elif target_column == "CPC(リンククリックの単価) (JPY)":
            # 実績値と予測値の合計を計算
              actual_sum = campaign_df[target_column].sum()
              pred_sum = predictions.sum()    
@@ -131,7 +116,7 @@ def plot_campaign_data(filtered_df,campaign_name, target_columns,selected_column
              st.write("","","")
              st.write("予想着地単価:￥<b>{:,.2f}</b> N".format(avg), unsafe_allow_html=True)    
              
-            elif target_column == "コストパーエンゲージメント":
+            elif target_column == "フリークエンシー":
            # 実績値と予測値の合計を計算
              actual_sum = campaign_df[target_column].sum()
              pred_sum = predictions.sum()    
@@ -139,17 +124,8 @@ def plot_campaign_data(filtered_df,campaign_name, target_columns,selected_column
              merged_df = pd.concat([campaign_df, predicted_df])
              avg = merged_df[target_column].mean()
              st.write("","","")
-             st.write("予想着地単価:￥<b>{:,.2f}</b> N".format(avg), unsafe_allow_html=True)   
+             st.write("予想平均FQ:<b>{:,.2f}</b> ".format(avg), unsafe_allow_html=True)   
 
-            elif target_column == "3秒/100%の動画再生あたりのコスト":
-           # 実績値と予測値の合計を計算
-             actual_sum = campaign_df[target_column].sum()
-             pred_sum = predictions.sum()    
-         # 実績値と予測値を合わせた平均値を計算
-             merged_df = pd.concat([campaign_df, predicted_df])
-             avg = merged_df[target_column].mean()
-             st.write("","","")
-             st.write("予想着地単価:￥<b>{:,.2f}</b> N".format(avg), unsafe_allow_html=True)
 
      # 両方のデータフレームを連結する
             merged_df = pd.concat([
@@ -182,8 +158,8 @@ if uploaded_file is not None:
     df["レポート開始日"] = pd.to_datetime(df["レポート開始日"])
     # カラム名の指定
     target_columns = [
-        "レポート開始日", "キャンペーン名","消化金額 (JPY)", "インプレッション","リーチ",
-        "リンクのクリック","動画の3秒再生数","動画の100%再生数"
+        "レポート開始日", "キャンペーン名","フリークエンシー","CPM",
+        "CTR(リンククリックスルー率)","CPC(リンククリックの単価) (JPY)"
     ]
 
     # - を 0 に変換
@@ -201,7 +177,7 @@ if uploaded_file is not None:
     dates = filtered_df["レポート開始日"].unique()
 
     campaign_name = st.selectbox("**キャンペーン名**", filtered_df["キャンペーン名"].unique())
-    selected_columns = st.multiselect("**予測項目**", target_columns[2:],help="必要のない項目は削除ください。")
+    selected_columns = st.multiselect("**予測項目**", target_columns[2:])
 
     # 入力値を文字列として定義
     now = datetime.now()
@@ -214,8 +190,7 @@ if uploaded_file is not None:
 
     # DateInputコンポーネントに渡す
     end_date = col1.date_input("**終了日を選択**", datetime.now(),help="レポートの終了日以後を選択ください。終了日が離れるほど、予測精度は悪化します。")
-    amount = col2.number_input("**総予算**", value=600000, step=1000,format="%d",help="Net 金額を入力")
-
+    
     if end_date:
      if campaign_name and selected_columns:
         for target_column in selected_columns:
