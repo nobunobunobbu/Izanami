@@ -3,10 +3,13 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 from PIL import Image
+import common
 
 image = Image.open('IZANAMI.png')
 
 st.image(image,use_column_width=True)
+
+common.check_login()
 
 def get_cosine_sim(text1, text2):
     # CountVectorizerを使用して、テキストのベクトル表現を作成します。
