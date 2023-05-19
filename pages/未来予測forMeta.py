@@ -9,11 +9,14 @@ import calendar
 from PIL import Image
 from io import BytesIO
 from openpyxl import load_workbook
+import common
 
 image = Image.open('for meta.png')
 st.image(image,use_column_width=True)
+
 image2 = Image.open('beta.png')
 st.image(image2, width=80)
+common.check_login()
 
 # グローバルでmatplotlib.pyplotを使用する際の警告を非表示にする
 st.set_option('deprecation.showPyplotGlobalUse', False)
