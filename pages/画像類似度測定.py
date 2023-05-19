@@ -3,11 +3,13 @@ import io
 import numpy as np
 import hashlib
 from PIL import Image
-
+import common
 
 image = Image.open('IZANAMI.png')
 
 st.image(image,use_column_width=True)
+
+common.check_login()
 
 def main():
     st.title('画像類似度測定')
