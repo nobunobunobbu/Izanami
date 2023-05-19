@@ -7,14 +7,17 @@ from dateutil.relativedelta import relativedelta
 from sklearn.linear_model import LinearRegression
 import calendar
 from PIL import Image
+import common
 
 image = Image.open('for twitter.png')
 st.image(image,use_column_width=True)
 image2 = Image.open('beta.png')
 st.image(image2, width=80)
+common.check_login()
 
 # グローバルでmatplotlib.pyplotを使用する際の警告を非表示にする
 st.set_option('deprecation.showPyplotGlobalUse', False)
+
 
 def plot_campaign_data(filtered_df,campaign_name, target_columns,selected_columns,end_date):
     # キャンペーン名と指定したカラムでフィルタリング
@@ -45,7 +48,8 @@ def plot_campaign_data(filtered_df,campaign_name, target_columns,selected_column
 
     # データを日別に集計
     daily_df = campaign_df.groupby([col for col in campaign_df.columns if col != "期間"]).mean()
-   
+    
+
 
     #  reset index to make it unique
     daily_df = daily_df.reset_index()
