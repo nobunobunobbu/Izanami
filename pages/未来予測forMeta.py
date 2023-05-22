@@ -17,7 +17,7 @@ st.image(image,use_column_width=True)
 image2 = Image.open('beta.png')
 st.image(image2, width=80)
 common.check_login()
-st.warning("Meta 管理画面から落とした「Microsoft Excel 97-2003 ワークシート」はサポートしていません。「Microsoft Excel ワークシート (.xlsx)」に変更の上アップロードしてください。")
+st.warning("Meta 管理画面から落としたままの「Microsoft Excel 97-2003 ワークシート」はサポートしていません。  \n「Microsoft Excel ワークシート (.xlsx)」に変更の上アップロードしてください。")
 
 # グローバルでmatplotlib.pyplotを使用する際の警告を非表示にする
 st.set_option('deprecation.showPyplotGlobalUse', False)
