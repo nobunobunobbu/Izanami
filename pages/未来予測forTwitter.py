@@ -207,7 +207,7 @@ if uploaded_file is not None:
     else:
         # 指定したカラム名が存在しない場合は空のデータフレームを作成
         filtered_df = pd.DataFrame(columns=target_columns)
-        st.warning("必要な項目が存在しません")
+        st.warning("必要な項目が不足しています。")
         
 
     dates = filtered_df["期間"].unique()
