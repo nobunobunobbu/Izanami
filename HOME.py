@@ -53,7 +53,18 @@ if check_password():
 # with tab1:
     with tab1:
      st.header("TOP")
-     st.write('Comming Soon!')
+     st.write("機能説明")
+     with st.expander('ポジネガ判定'):
+         st.write("アップロードしたExcel ファイルの指定した列を行ごとに読み込み、各文章をポジ/ネガ/ニュートラルで判定します。")
+     with st.expander('文章類似度測定'):
+         st.write("アップロードした2つの文章を読み込み、その類似度を測定します。")
+     with st.expander('未来予測forMeta'):
+         st.write('アップロードしたローデータファイルを読み込み、指定した項目の未来予測を行います。')
+     with st.expander('未来予測forTwitter'):
+         st.write('アップロードしたローデータファイルを読み込み、指定した項目の未来予測を行います。')
+     with st.expander('画像類似度測定'):
+         st.write("アップロードした2つの画像を読み込み、その類似度を測定します。")
+
 
 # with tab2:
     with tab2:
@@ -64,5 +75,6 @@ if check_password():
         </iframe>
     """, unsafe_allow_html=True)
     with tab3:
-     st.header("Ver 1.00")
-     st.write('Izanami をリリースしました。')
+     st.header("Ver 1.00 (2023/05/22)")
+     st.markdown('Izanami の以下機能をリリースしました。  \n・ポジネガ判定  \n・文章類似度測定  \n・未来予測forMeta  \n・未来予測forTwitter  \n ・画像類似度測定', unsafe_allow_html=True)
+
