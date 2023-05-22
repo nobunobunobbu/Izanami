@@ -11,10 +11,10 @@ from PIL import Image
 import common
 
 image = Image.open('IZANAMI.png')
+st.image(image,use_column_width=True)
 
 common.check_login()
 
-st.image(image,use_column_width=True)
 st.title('ポジネガ判定')
 
 
