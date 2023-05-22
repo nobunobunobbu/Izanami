@@ -76,5 +76,5 @@ if check_password():
     """, unsafe_allow_html=True)
     with tab3:
      st.header("Ver 1.00 (2023/05/22)")
-     st.markdown('Izanami の以下機能をリリースしました。  \n・ポジネガ判定  \n・文章類似度測定  \n・未来予測forMeta  \n・未来予測forTwitter  \n ・画像類似度測定', unsafe_allow_html=True)
+     st.markdown('Izanami の以下機能をリリースしました。  \n・ポジネガ判定  \n・文章類似度測定  \n・未来予測forMeta β版  \n・未来予測forTwitter β版  \n ・画像類似度測定', unsafe_allow_html=True)
 
