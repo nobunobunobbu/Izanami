@@ -8,9 +8,11 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 from janome.tokenizer import Tokenizer
 from PIL import Image
-
+import common
 
 image = Image.open('IZANAMI.png')
+
+common.check_login()
 
 st.image(image,use_column_width=True)
 st.title('ポジネガ判定')
