@@ -163,6 +163,11 @@ if uploaded_file is not None:
     except KeyError:
        st.error("ファイルの形式が異なります。")
        st.stop()
+        
+    except Exception as e:
+     st.error("ファイルをもう一度確認してください")
+     st.error(str(e))
+     st.stop()
     # カラム名の指定
     target_columns = [
         "レポート開始日", "キャンペーン名","フリークエンシー","CPM",
