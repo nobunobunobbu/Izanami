@@ -156,7 +156,13 @@ if uploaded_file is not None:
         df = pd.read_excel(uploaded_file)
     except:
         df = pd.read_excel(uploaded_file, engine='xlrd')
+        
+    try:
     df["レポート開始日"] = pd.to_datetime(df["レポート開始日"])
+    
+    except KeyError:
+       st.error("ファイルの形式が異なります。")
+       st.stop()
     # カラム名の指定
     target_columns = [
         "レポート開始日", "キャンペーン名","フリークエンシー","CPM",
