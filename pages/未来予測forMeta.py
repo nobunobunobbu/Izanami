@@ -150,7 +150,7 @@ def plot_campaign_data(filtered_df,campaign_name, target_columns,selected_column
 
 
 # ファイルのアップロード
-uploaded_file = st.file_uploader("**ExcelまたはCSVファイルをアップロードしてください**", type=["xlsx", "csv"],help="必須項目：レポート開始日/キャンペーン名/インプレッション/CPM/リンククリック数/CPC/エンゲージメント数/CPE/3秒100%の動画再生数/CPV")
+uploaded_file = st.file_uploader("**ExcelまたはCSVファイルをアップロードしてください**", type=["xlsx", "csv"],help="必須項目：レポート開始日/キャンペーン名/フリークエンシー/CPM/リンククリック数/CPC/CTR/CPC")
 
 if uploaded_file is not None:
     # データフレームの読み込み
