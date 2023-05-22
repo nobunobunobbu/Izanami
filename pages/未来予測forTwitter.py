@@ -185,6 +185,10 @@ if uploaded_file is not None:
     except KeyError:
        st.error("ファイルの形式が異なります。")
        st.stop()
+    except Exception as e:
+     st.error("ファイルをもう一度確認してください")
+     st.error(str(e))
+     st.stop()
 
     # カラム名の指定
     target_columns = [
@@ -204,6 +208,7 @@ if uploaded_file is not None:
         # 指定したカラム名が存在しない場合は空のデータフレームを作成
         filtered_df = pd.DataFrame(columns=target_columns)
         st.warning("必要な項目が存在しません")
+        
 
     dates = filtered_df["期間"].unique()
 
