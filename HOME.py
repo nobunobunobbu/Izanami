@@ -59,7 +59,7 @@ if check_password():
      with st.expander('文章類似度測定'):
          st.write("アップロードした2つの文章を読み込み、その類似度を測定します。")
      with st.expander('未来予測forMeta'):
-         st.write('アップロードしたローデータファイルを読み込み、指定した項目の未来予測を行います。')
+         st.markdown('アップロードしたローデータファイルを読み込み、指定した項目の未来予測を行います。  \n Meta管理画面から落としたファイル形式はサポートされていないので、Excel ワークブックに変更する必要があります。',unsafe_allow_html=True)
      with st.expander('未来予測forTwitter'):
          st.write('アップロードしたローデータファイルを読み込み、指定した項目の未来予測を行います。')
      with st.expander('画像類似度測定'):
