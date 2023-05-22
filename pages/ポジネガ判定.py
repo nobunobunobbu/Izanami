@@ -17,6 +17,7 @@ st.image(image,use_column_width=True)
 common.check_login()
 
 st.title('ポジネガ判定')
+st.markdown('Amazon レビューをもとにトレーニングした言語解析モデルを利用して判定を行います。  \n NetBase のローデータをそのままアップロードしたうえで、判定する列名を選択してください。')
 
 
 # BERTモデルとトークナイザの読み込み
