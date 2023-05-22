@@ -61,7 +61,7 @@ if check_password():
      with st.expander('未来予測forMeta'):
          st.markdown('アップロードしたローデータファイルを読み込み、指定した項目の未来予測を行います。  \n ※Meta管理画面から落としたファイル形式はサポートされていないので、Excel ワークブックに変更する必要があります。  \n  \n  推奨実績データ：14日間以上',unsafe_allow_html=True)
      with st.expander('未来予測forTwitter'):
-         st.markdown('アップロードしたローデータファイルを読み込み、各種指標の未来予測を指定日まで行います。総予算に入力で予想着地率も算出されます。  \n  \n 推奨実績データ：14日間以上',unsafe_allow_html=True)
+         st.markdown('アップロードしたローデータファイルを読み込み、各種指標の未来予測を指定日まで行います。総予算を入力することで予想着地率も算出されます。  \n  \n 推奨実績データ：14日間以上',unsafe_allow_html=True)
      with st.expander('画像類似度測定'):
          st.write("アップロードした2つの画像を読み込み、その類似度を測定します。")
 
