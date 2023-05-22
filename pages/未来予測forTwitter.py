@@ -178,7 +178,12 @@ uploaded_file = st.file_uploader("**ExcelまたはCSVファイルをアップロ
 if uploaded_file is not None:
     # データフレームの読み込み
     df = pd.read_excel(uploaded_file)
+    try:
     df["期間"] = pd.to_datetime(df["期間"])
+    
+    except KeyError:
+       st.error("ファイルの形式が異なります。")
+       st.stop()
 
     # カラム名の指定
     target_columns = [
