@@ -31,7 +31,7 @@ def check_password():
 
     if "password_correct" not in st.session_state:
         # First run, show inputs for username + password.
-        st.session_state["username"] = st.text_input("ログインID", help="Enter/Tab キーによる切り替えは無効です")
+        st.session_state["username"] = st.text_input("ログインID")
         st.session_state["password"] = st.text_input(
             "パスワード", type="password"
         )
@@ -80,6 +80,6 @@ if check_password():
         </iframe>
     """, unsafe_allow_html=True)
     with tab3:
-     st.header("Ver 1.00 (2023/05/22)")
+     st.header("Ver 1.00 (2023/05/23)")
      st.markdown('Izanami の以下機能をリリースしました。  \n・ポジネガ判定  \n・文章類似度測定  \n・未来予測forMeta β版  \n・未来予測forTwitter β版  \n ・画像類似度測定', unsafe_allow_html=True)
 
