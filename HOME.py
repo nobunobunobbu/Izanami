@@ -1,6 +1,10 @@
 import streamlit as st
 from PIL import Image
 
+image1 = Image.open('icon.png')
+st.set_page_config(
+    page_title="Izanami",page_icon=image1)
+
 image = Image.open('IZANAMI.png')
 st.image(image, use_column_width=True)
 
