@@ -3,8 +3,7 @@ from PIL import Image
 
 image1 = Image.open('icon.png')
 st.set_page_config(
-    page_title="Izanami",page_icon=image1,
-    layout="wide",
+    page_title="Izanami",page_icon=image1,,
     initial_sidebar_state="auto", 
 )
 
