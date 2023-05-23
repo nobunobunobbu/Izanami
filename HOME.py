@@ -53,7 +53,6 @@ def check_password():
         # Password correct.
         return True
 
-if check_password():
 
     tab1, tab2, tab3 = st.tabs(["Top", "ご意見・ご要望", "バージョン履歴"])
 
