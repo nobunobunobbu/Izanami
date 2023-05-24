@@ -59,8 +59,9 @@ if check_password():
     with tab1:
      st.header("TOP")
      st.write("機能説明")
+     link = "https://auto-worker.com/blog/?p=6988"
      with st.expander('Summarize PDF with ChatGPT'):
-         st.write("アップロードしたPDF ファイルを読み込み、ChatGPT を用いてわかりやすく解説します。")
+         st.write("アップロードしたPDF ファイルを読み込み、ChatGPT を用いてわかりやすく解説します。  \n ChatGPT のAPI Keyが必要です。　発行手順は"f"[こちら]({link})")
      with st.expander('ポジネガ判定'):
          st.write("アップロードしたExcel ファイルの指定した列を行ごとに読み込み、各文章をポジ/ネガ/ニュートラルで判定します。")
      with st.expander('文章類似度測定'):
