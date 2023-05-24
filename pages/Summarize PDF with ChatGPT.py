@@ -11,7 +11,7 @@ image = Image.open('IZANAMI.png')
 
 st.image(image,use_column_width=True)
 
-
+common.check_login()
 
 
 # Streamlit アプリケーションの設定
