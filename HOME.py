@@ -83,7 +83,7 @@ if check_password():
     """, unsafe_allow_html=True)
     with tab3:
      with st.expander("Ver 1.10 (2023/05/24)"):
-      st.markdown('Izanami の以下機能をリリースしました。  \n・SummarizePDFwithChatGPT, unsafe_allow_html=True)
+      st.markdown('Izanami の以下機能をリリースしました。  \n・"SummarizePDFwithChatGPT", unsafe_allow_html=True)
      with st.expander("Ver 1.00 (2023/05/23)"):
       st.markdown('Izanami の以下機能をリリースしました。  \n・ポジネガ判定  \n・文章類似度測定  \n・未来予測forMeta β版  \n・未来予測forTwitter β版  \n ・画像類似度測定', unsafe_allow_html=True)
 
