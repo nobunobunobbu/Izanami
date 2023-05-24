@@ -3,24 +3,17 @@ from PyPDF2 import PdfReader
 import requests
 import textwrap
 from PIL import Image
-import common
-import keyring
-
 
 image = Image.open('IZANAMI.png')
 
 st.image(image,use_column_width=True)
-
-common.check_login()
-
 
 # Streamlit アプリケーションの設定
 st.title("Summarize PDF with ChatGPT")
 
 # ChatGPT のAPIキー入力用テキストボックス
 api_key = st.text_input("ChatGPT のAPI Key を入力してください", type="password")
-keyring.set_password("chatgpt", "api_key", api_key)
-saved_api_key = keyring.get_password("chatgpt", "api_key")
+st.session_state.api_key = api_key
 
 # ユーザーからPDF ファイルをアップロード
 uploaded_file = st.file_uploader("PDF ファイルをアップロードしてください", type="pdf")
@@ -48,7 +41,7 @@ if run_button:
         # ChatGPT にテキストを送信して解説を生成
         prompt = "テキストを読んで内容をマークダウンでわかりやすく解説して"
         headers = {
-            "Authorization": f"Bearer {saved_api_key}",
+            "Authorization": f"Bearer {st.session_state.api_key}",
             "Content-Type": "application/json"
         }
         data = {
