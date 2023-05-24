@@ -59,6 +59,8 @@ if check_password():
     with tab1:
      st.header("TOP")
      st.write("機能説明")
+     with st.expander('Summarize PDF with ChatGPT'):
+         st.write("アップロードしたPDF ファイルを読み込み、ChatGPT を用いてわかりやすく解説します。")
      with st.expander('ポジネガ判定'):
          st.write("アップロードしたExcel ファイルの指定した列を行ごとに読み込み、各文章をポジ/ネガ/ニュートラルで判定します。")
      with st.expander('文章類似度測定'):
@@ -80,6 +82,8 @@ if check_password():
         </iframe>
     """, unsafe_allow_html=True)
     with tab3:
+     with st.expander("Ver 1.10 (2023/05/24)"):
+      st.markdown('Izanami の以下機能をリリースしました。  \n・Summarize PDF with ChatGPT, unsafe_allow_html=True)
      with st.expander("Ver 1.00 (2023/05/23)"):
       st.markdown('Izanami の以下機能をリリースしました。  \n・ポジネガ判定  \n・文章類似度測定  \n・未来予測forMeta β版  \n・未来予測forTwitter β版  \n ・画像類似度測定', unsafe_allow_html=True)
 
