@@ -73,5 +73,5 @@ if run_button:
             st.error(f"API request failed with status code: {response.status_code}. Details: {error_details}")
 
     # All explanations are displayed as a single text
-    st.subheader("結果:")
+    st.subheader("▼")
     st.write(' '.join(explanations))
