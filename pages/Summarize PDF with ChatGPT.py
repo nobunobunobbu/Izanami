@@ -3,10 +3,13 @@ from PyPDF2 import PdfReader
 import requests
 import textwrap
 from PIL import Image
+import common
 
 image = Image.open('IZANAMI.png')
 
 st.image(image,use_column_width=True)
+
+common.check_login()
 
 # Streamlit アプリケーションの設定
 st.title("Summarize PDF with ChatGPT")
