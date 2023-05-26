@@ -15,6 +15,8 @@ image2 = Image.open('beta.png')
 st.image(image2, width=80)
 common.check_login()
 
+st.info("ローデータファイルに必要な項目：期間, キャンペーン名,ご利用金額, インプレッション,1,000インプレッションあたりのコスト,リンクのクリック数, リンククリックあたりのコスト,ツイートのエンゲージメント数,コストパーエンゲージメント,3秒/100%の動画再生数,3秒/100%の動画再生あたりのコスト")
+
 # グローバルでmatplotlib.pyplotを使用する際の警告を非表示にする
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
