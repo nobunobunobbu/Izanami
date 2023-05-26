@@ -18,6 +18,7 @@ image2 = Image.open('beta.png')
 st.image(image2, width=80)
 common.check_login()
 st.warning("Meta 管理画面から落としたままの「Microsoft Excel 97-2003 ワークシート」はサポートしていません。  \n「Microsoft Excel ワークシート (.xlsx)」に変更の上アップロードしてください。")
+st.info("ローデータファイルに必要な項目： レポート開始日, キャンペーン名,フリークエンシー,CPM,CTR(リンククリックスルー率),CPC(リンククリックの単価) (JPY)")
 
 # グローバルでmatplotlib.pyplotを使用する際の警告を非表示にする
 st.set_option('deprecation.showPyplotGlobalUse', False)
