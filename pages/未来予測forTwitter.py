@@ -30,7 +30,7 @@ def plot_campaign_data(filtered_df,campaign_name, target_columns,selected_column
     end_date = pd.to_datetime(end_date)
     min_date = campaign_df["期間"].min()
     max_date = campaign_df["期間"].max()
-    delta = abs((min_date - end_date).days)
+    delta = abs((min_date - end_date).days)+1
 
     # 日数をインデックスに設定
     if delta < len(campaign_df):
