@@ -98,7 +98,7 @@ def plot_campaign_data(filtered_df,campaign_name, target_columns,selected_column
             predicted_df = predicted_df.rename(columns={"予測値": "レポート開始日"})
 
 
-            if target_column == "CPM":
+            if target_column == "CPM(インプレッション単価) (JPY)":
            # 実績値と予測値の合計を計算
              actual_sum = campaign_df[target_column].sum()
              pred_sum = predictions.sum()    
