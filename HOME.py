@@ -84,7 +84,7 @@ if check_password():
     """, unsafe_allow_html=True)
     with tab3:
      with st.expander("Ver 1.11 (2023/05/26)"):
-      st.markdown('未来予測forTwitter ・未来予測forMeta の予測期間の不具合を修正。必要項目のインフォメーションを追加。', unsafe_allow_html=True)
+      st.markdown('未来予測forTwitter ・未来予測forMeta の予測期間の不具合を修正。  \n 必要項目のインフォメーションを追加。', unsafe_allow_html=True)
      with st.expander("Ver 1.10 (2023/05/24)"):
       st.markdown('Izanami の以下機能をリリースしました。  \n・Summarize PDF with ChatGPT', unsafe_allow_html=True)
      with st.expander("Ver 1.00 (2023/05/23)"):
