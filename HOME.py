@@ -59,9 +59,10 @@ if check_password():
     with tab1:
      st.header("TOP")
      st.write("機能説明")
-     link = "https://auto-worker.com/blog/?p=6988"
      with st.expander('Summarize PDF with ChatGPT'):
-         st.write("アップロードしたPDF ファイルを読み込み、ChatGPT を用いてわかりやすく解説します。  \n ChatGPT のAPI Keyが必要です。　発行手順は"f"[こちら]({link})")
+         st.write("アップロードしたPDF ファイルを読み込み、ChatGPT を用いてわかりやすく解説します。 ")
+     with st.expander('クリエイティブサポート):
+         st.write("Twitter・Instagram 用の投稿文を作成します。  \n また、薬機法・景表法判定もサポートしています。テキストまたは画像内のテキストを読み込んで判定可能です。 ")
      with st.expander('ポジネガ判定'):
          st.write("アップロードしたExcel ファイルの指定した列を行ごとに読み込み、各文章をポジ/ネガ/ニュートラルで判定します。")
      with st.expander('文章類似度測定'):
@@ -83,6 +84,8 @@ if check_password():
         </iframe>
     """, unsafe_allow_html=True)
     with tab3:
+     with st.expander("Ver 1.20 (2023/06/02)"):
+      st.markdown('Izanami の以下機能をリリースしました。  \n・クリエイティブサポート', unsafe_allow_html=True)
      with st.expander("Ver 1.11 (2023/05/26)"):
       st.markdown('未来予測forTwitter ・未来予測forMeta の予測期間の不具合を修正。  \n 必要項目のインフォメーションを追加。', unsafe_allow_html=True)
      with st.expander("Ver 1.10 (2023/05/24)"):
