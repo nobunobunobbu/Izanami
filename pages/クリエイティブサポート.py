@@ -8,9 +8,9 @@ import common
 
 image = Image.open('IZANAMI.png')
 
-common.check_login()
-
 st.image(image,use_column_width=True)
+
+common.check_login()
 
 # Streamlit アプリケーションの設定
 st.title("クリエイティブサポート")
