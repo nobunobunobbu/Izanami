@@ -6,6 +6,7 @@ import easyocr
 import numpy as np
 import common
 import requests
+from bs4 import BeautifulSoup
 
 image = Image.open('IZANAMI.png')
 
