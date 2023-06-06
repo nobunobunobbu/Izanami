@@ -85,7 +85,7 @@ if check_password():
     """, unsafe_allow_html=True)
     with tab3:
      with st.expander("Ver 1.21 (2023/06/06)"):
-      st.markdown('クリエイティブサポート機能を強化しました。  \n・画像生成機能を追加。', unsafe_allow_html=True)
+      st.markdown('クリエイティブサポート機能を強化しました。  \n・画像生成機能を追加。  \n・投稿文作成でwebページ読み込みに対応', unsafe_allow_html=True)
      with st.expander("Ver 1.20 (2023/06/02)"):
       st.markdown('Izanami の以下機能をリリースしました。  \n・クリエイティブサポート', unsafe_allow_html=True)
      with st.expander("Ver 1.11 (2023/05/26)"):
