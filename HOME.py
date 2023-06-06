@@ -62,7 +62,7 @@ if check_password():
      with st.expander('Summarize PDF with ChatGPT'):
          st.write("アップロードしたPDF ファイルを読み込み、ChatGPT を用いてわかりやすく解説します。 ")
      with st.expander('クリエイティブサポート'):
-         st.write("Twitter・Instagram 用の投稿文を作成します。  \n また、薬機法・景表法判定もサポートしています。テキストまたは画像内のテキストを読み込んで判定可能です。 ")
+         st.write("Twitter・Instagram 用の投稿文を作成します。  \n 画像生成機能を実装しました。  \n また、薬機法・景表法判定もサポートしています。テキストまたは画像内のテキストを読み込んで判定可能です。 ")
      with st.expander('ポジネガ判定'):
          st.write("アップロードしたExcel ファイルの指定した列を行ごとに読み込み、各文章をポジ/ネガ/ニュートラルで判定します。")
      with st.expander('文章類似度測定'):
@@ -84,6 +84,8 @@ if check_password():
         </iframe>
     """, unsafe_allow_html=True)
     with tab3:
+     with st.expander("Ver 1.21 (2023/06/06)"):
+      st.markdown('クリエイティブサポート機能を強化しました。  \n・画像生成機能を追加。', unsafe_allow_html=True)
      with st.expander("Ver 1.20 (2023/06/02)"):
       st.markdown('Izanami の以下機能をリリースしました。  \n・クリエイティブサポート', unsafe_allow_html=True)
      with st.expander("Ver 1.11 (2023/05/26)"):
