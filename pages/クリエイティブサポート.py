@@ -25,17 +25,24 @@ with tab1:
 
  # ユーザーからの質問をテキストボックスで受け取る
  promotion = st.text_input("商材名")
- question = st.text_area("商材の特長")
+ content_gen = st.selectbox('コンテンツ生成方法', ['テキストから生成', 'リンクから生成'])
 
- col1, col2 = st.columns(2)
+ if content_gen == 'テキストから生成':
+  question = st.text_area("商材の特長")
 
- youso = col1.text_area("入れ込みたい要素①")
- youso1 = col2.text_area("入れ込みたい要素②")
+  col1, col2 = st.columns(2)
 
- col3, col4,col5 = st.columns(3)
- youso2 = col3.text_area("入れ込みたい要素③")
- youso3 = col4.text_area("入れ込みたい要素④")
- youso4 = col5.text_area("入れ込みたい要素⑤")
+  youso = col1.text_area("入れ込みたい要素①")
+  youso1 = col2.text_area("入れ込みたい要素②")
+
+  col3, col4,col5 = st.columns(3)
+  youso2 = col3.text_area("入れ込みたい要素③")
+  youso3 = col4.text_area("入れ込みたい要素④")
+  youso4 = col5.text_area("入れ込みたい要素⑤")
+
+ else:
+    # URLを入力する新たな入力欄
+    question = st.text_input('URLを入力してください')
 
  num_elements = st.number_input("出力したいアイデア数を入力してください", min_value=0, value=1, step=1)
 
@@ -53,13 +60,24 @@ with tab1:
 
  if run_button:
     if question != "" and api_key != "":
-        elements = [youso, youso1, youso2, youso3, youso4]
-        elements_md = "\n".join([f"- {el}" for el in elements if el])
         emoji_prompt = " 絵文字とハッシュタグを入れて" if emoji == "はい" else ""
         # ChatGPT に質問を送信して回答を生成
-        if social_media == 'Twitter':
-            prompt = "商品を説明するPR文章を、PR文章基礎をベースに入れ込みたい要素を基にしてTwitter用に"+emoji_prompt+"日本語で140文字以内で"+str(num_elements) +"個考えてください。要素のすべてを入れる必要はありません。商品:" +promotion + "PR文章基礎:"+question+"入れ込みたい要素："+ elements_md
+        if content_gen == 'リンクから生成':
+            response = requests.get(question)
+            # BeautifulSoupでHTMLを解析します
+            soup = BeautifulSoup(response.text, 'html.parser')
+            # 全てのテキストを取得します
+            html = ' '.join(map(lambda p: p.text, soup.find_all('p')))
+            if social_media == 'Twitter':
+             prompt = "商品を説明するPR投稿文を、文章を基にしてTwitter用に"+emoji_prompt+"日本語で140文字以内で"+str(num_elements) +"個考えてください。要素のすべてを入れる必要はありません。文章："+ html
+            else: 
+             prompt =  "商品を説明するPR文章を、PR文章基礎をベースに入れ込みたい要素を基にしてInstagram用に"+emoji_prompt+"日本語で"+str(num_elements) +"個考えてください。商品：" +promotion + "PR文章基礎:"+question+"入れ込みたい要素："+ html
         else: 
+         elements = [youso, youso1, youso2, youso3, youso4]
+         elements_md = "\n".join([f"- {el}" for el in elements if el])
+         if social_media == 'Twitter':
+            prompt = "商品を説明するPR文章を、PR文章基礎をベースに入れ込みたい要素を基にしてTwitter用に"+emoji_prompt+"日本語で140文字以内で"+str(num_elements) +"個考えてください。要素のすべてを入れる必要はありません。商品:" +promotion + "PR文章基礎:"+question+"入れ込みたい要素："+ elements_md
+         else: 
             prompt =  "商品を説明するPR文章を、PR文章基礎をベースに入れ込みたい要素を基にしてInstagram用に"+emoji_prompt+"日本語で"+str(num_elements) +"個考えてください。商品：" +promotion + "PR文章基礎:"+question+"入れ込みたい要素："+ elements_md
         headers = {
             "Authorization": f"Bearer {st.session_state.api_key}",
