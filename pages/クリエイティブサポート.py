@@ -185,21 +185,27 @@ with tab3:
 with tab2:
     api_key = st.secrets["api_key"]["api_key"]
     st.session_state.api_key = api_key
-   
-    st.warning("出力できる画像数は1か月あたり15枚までとなります。")
 
     promotion = st.text_input("商材名",key="promotion2")
-    question = st.text_area("商材の特長",key="question2")
 
-    col1, col2 = st.columns(2)
+    content_gen = st.selectbox('コンテンツ生成方法', ['テキストから生成', 'リンクから生成'],key="gen")
 
-    youso = col1.text_area("入れ込みたい要素①",key="youso1")
-    youso1 = col2.text_area("入れ込みたい要素②",key="youso2")
+    if content_gen == 'テキストから生成':
+     question = st.text_area("商材の特長",key="question2")
 
-    col3, col4, col5 = st.columns(3)
-    youso2 = col3.text_area("入れ込みたい要素③",key="youso3")
-    youso3 = col4.text_area("入れ込みたい要素④",key="youso4")
-    youso4 = col5.text_area("入れ込みたい要素⑤",key="youso5")
+     col1, col2 = st.columns(2)
+
+     youso = col1.text_area("入れ込みたい要素①",key="youso1")
+     youso1 = col2.text_area("入れ込みたい要素②",key="youso2")
+
+     col3, col4, col5 = st.columns(3)
+     youso2 = col3.text_area("入れ込みたい要素③",key="youso3")
+     youso3 = col4.text_area("入れ込みたい要素④",key="youso4")
+     youso4 = col5.text_area("入れ込みたい要素⑤",key="youso5")
+    else:
+    # URLを入力する新たな入力欄
+     question = st.text_input('URLを入力してください')
+
 
     num_elements = st.number_input("出力したい画像数を入力してください", min_value=0, value=1, step=1)
 
@@ -211,7 +217,16 @@ with tab2:
         if question != "" and api_key != "":
             elements = [youso, youso1, youso2, youso3, youso4]
             elements_md = "\n".join([f"- {el}" for el in elements if el])
-            prompt = "以下の要素をもとに、広告にありそうな構図をDALL-E2に描いてもらいたい。DALL-E2 に入力するプロンプトを英語で考えて。商品:" +promotion + "PR文章基礎:"+question+"入れ込みたい要素："+ elements_md
+            if content_gen == 'リンクから生成':
+             response = requests.get(question)
+             # BeautifulSoupでHTMLを解析します
+             soup = BeautifulSoup(response.text, 'html.parser')
+            # 全てのテキストを取得します
+             html = ' '.join(map(lambda p: p.text, soup.find_all('p')))
+             prompt = "以下の要素をもとに、広告にありそうな構図をDALL-E2に描いてもらいたい。DALL-E2 に入力するプロンプトを英語で考えて。要素："+ html
+
+            else:  
+             prompt = "以下の要素をもとに、広告にありそうな構図をDALL-E2に描いてもらいたい。DALL-E2 に入力するプロンプトを英語で考えて。商品:" +promotion + "PR文章基礎:"+question+"入れ込みたい要素："+ elements_md
 
             headers = {
                 "Authorization": f"Bearer {st.session_state.api_key}",
@@ -259,6 +274,7 @@ with tab2:
             image_response = requests.post(dall_e_url, headers=headers, json=payload)
 
             image_response_json = image_response.json()
+           
       
             # 生成された画像のURLを返す
             image_url =  [result['url'] for result in image_response_json['data']]
