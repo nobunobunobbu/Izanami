@@ -72,7 +72,7 @@ with tab1:
             if social_media == 'Twitter':
              prompt = "商品を説明するPR投稿文を、文章を基にしてTwitter用に"+emoji_prompt+"日本語で140文字以内で"+str(num_elements) +"個考えてください。要素のすべてを入れる必要はありません。文章："+ html
             else: 
-             prompt =  "商品を説明するPR文章を、PR文章基礎をベースに入れ込みたい要素を基にしてInstagram用に"+emoji_prompt+"日本語で"+str(num_elements) +"個考えてください。商品：" +promotion + "PR文章基礎:"+question+"入れ込みたい要素："+ html
+             prompt =  "商品を説明するPR文章を、文章を基にしてInstagram用に"+emoji_prompt+"日本語で"+str(num_elements) +"個考えてください。文章："+ html
         else: 
          elements = [youso, youso1, youso2, youso3, youso4]
          elements_md = "\n".join([f"- {el}" for el in elements if el])
