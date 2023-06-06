@@ -166,6 +166,8 @@ with tab3:
 with tab2:
     api_key = st.secrets["api_key"]["api_key"]
     st.session_state.api_key = api_key
+   
+    st.warning("出力できる画像数は1か月あたり15枚までとなります。")
 
     promotion = st.text_input("商材名",key="promotion2")
     question = st.text_area("商材の特長",key="question2")
