@@ -5,17 +5,18 @@ from PIL import Image
 import easyocr
 import numpy as np
 import common
+import requests
 
 image = Image.open('IZANAMI.png')
 
-st.image(image,use_column_width=True)
 
+st.image(image,use_column_width=True)
 common.check_login()
 
 # Streamlit アプリケーションの設定
 st.title("クリエイティブサポート")
 
-tab1, tab2 = st.tabs(["投稿文作成", "薬機法/景表法判定"])
+tab1, tab2,tab3 = st.tabs(["投稿文作成","画像生成","薬機法/景表法判定"])
 
 with tab1:
  # ChatGPT のAPIキー入力用テキストボックス
@@ -95,7 +96,7 @@ with tab1:
                 error_details = "No additional information."
             st.error(f"API request failed with status code: {response.status_code}. Details: {error_details}")
 
-with tab2:
+with tab3:
     api_key2 = st.secrets["api_key"]["api_key"]
     st.session_state.api_key = api_key
 
@@ -162,4 +163,86 @@ with tab2:
                 error_details2 = "No additional information."
             st.error(f"API request failed with status code: {response2.status_code}. Details: {error_details2}")
 
+with tab2:
+    api_key = st.secrets["api_key"]["api_key"]
+    st.session_state.api_key = api_key
 
+    promotion = st.text_input("商材名",key="promotion2")
+    question = st.text_area("商材の特長",key="question2")
+
+    col1, col2 = st.columns(2)
+
+    youso = col1.text_area("入れ込みたい要素①",key="youso1")
+    youso1 = col2.text_area("入れ込みたい要素②",key="youso2")
+
+    col3, col4, col5 = st.columns(3)
+    youso2 = col3.text_area("入れ込みたい要素③",key="youso3")
+    youso3 = col4.text_area("入れ込みたい要素④",key="youso4")
+    youso4 = col5.text_area("入れ込みたい要素⑤",key="youso5")
+
+    num_elements = st.number_input("出力したい画像数を入力してください", min_value=0, value=1, step=1)
+
+    model = st.selectbox('GPTモデルの選択', ['gpt-3.5-turbo', 'gpt-4'], help="GPT4 での実行はChatGPT Plus への加入が必要です" , key="model_select2")
+
+    run_button = st.button('実行' , key="runbotton2")
+
+    if run_button:
+        if question != "" and api_key != "":
+            elements = [youso, youso1, youso2, youso3, youso4]
+            elements_md = "\n".join([f"- {el}" for el in elements if el])
+            prompt = "以下の要素をもとに、広告にありそうな構図をDALL-E2に描いてもらいたい。DALL-E2 に入力するプロンプトを英語で考えて。商品:" +promotion + "PR文章基礎:"+question+"入れ込みたい要素："+ elements_md
+
+            headers = {
+                "Authorization": f"Bearer {st.session_state.api_key}",
+                "Content-Type": "application/json"
+            }
+            data = {
+                "model": model,
+                "messages": [
+                    {
+                        "role": "system",
+                        "content": "You are a Ads Creative Manager."
+                    },
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ]
+            }
+
+            response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=data)
+
+            response_data = response.json()
+
+            #チャットGPTの回答を取り出します
+            chat_gpt_response = response_data['choices'][0]['message']['content']
+
+
+
+            # DALL-Eリクエストの実装
+            payload = {
+                'n': num_elements,
+                'size' : '1024x1024',
+                'prompt': chat_gpt_response
+            }
+
+            # DALL-E APIのURL
+            dall_e_url = 'https://api.openai.com/v1/images/generations'
+            headers = {
+            'Authorization':'Bearer '+ api_key,
+            'Content-type': 'application/json',
+            'X-Slack-No-Retry': '1'
+            }
+
+            # DALL-Eリクエストの送信
+            image_response = requests.post(dall_e_url, headers=headers, json=payload)
+
+            image_response_json = image_response.json()
+            st.write(image_response_json)
+      
+            # 生成された画像のURLを返す
+            image_url = image_response_json['data'][0]['url']
+    
+
+            # Streamlitを用いて画像を表示
+            st.image(image_url)
