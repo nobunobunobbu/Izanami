@@ -205,7 +205,7 @@ with tab2:
      youso4 = col5.text_area("入れ込みたい要素⑤",key="youso5")
     else:
     # URLを入力する新たな入力欄
-     question = st.text_input('URLを入力してください')
+     question = st.text_input('URLを入力してください',key="inputurl")
 
 
     num_elements = st.number_input("出力したい画像数を入力してください", min_value=0, value=1, step=1)
