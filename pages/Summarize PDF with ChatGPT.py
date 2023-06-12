@@ -12,7 +12,7 @@ st.image(image,use_column_width=True)
 common.check_login()
 
 # Streamlit アプリケーションの設定
-st.title("Summarize PDF with ChatGPT")
+st.title("PDF 要約機能")
 
 # ChatGPT のAPIキー入力用テキストボックス
 api_key = st.secrets["api_key"]["api_key"]
