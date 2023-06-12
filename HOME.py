@@ -59,7 +59,7 @@ if check_password():
     with tab1:
      st.header("TOP")
      st.write("機能説明")
-     with st.expander('Summarize PDF with ChatGPT'):
+     with st.expander('PDF 要約機能'):
          st.write("アップロードしたPDF ファイルを読み込み、ChatGPT を用いてわかりやすく解説します。 ")
      with st.expander('クリエイティブサポート'):
          st.write("Twitter・Instagram 用の投稿文を作成します。  \n 画像生成機能を実装しました。  \n また、薬機法・景表法判定もサポートしています。テキストまたは画像内のテキストを読み込んで判定可能です。 ")
@@ -91,7 +91,7 @@ if check_password():
      with st.expander("Ver 1.11 (2023/05/26)"):
       st.markdown('未来予測forTwitter ・未来予測forMeta の予測期間の不具合を修正。  \n 必要項目のインフォメーションを追加。', unsafe_allow_html=True)
      with st.expander("Ver 1.10 (2023/05/24)"):
-      st.markdown('Izanami の以下機能をリリースしました。  \n・Summarize PDF with ChatGPT', unsafe_allow_html=True)
+      st.markdown('Izanami の以下機能をリリースしました。  \n・PDF 要約機能', unsafe_allow_html=True)
      with st.expander("Ver 1.00 (2023/05/23)"):
       st.markdown('Izanami の以下機能をリリースしました。  \n・ポジネガ判定  \n・文章類似度測定  \n・未来予測forMeta β版  \n・未来予測forTwitter β版  \n ・画像類似度測定', unsafe_allow_html=True)
 
