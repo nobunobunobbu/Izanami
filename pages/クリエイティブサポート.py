@@ -69,6 +69,8 @@ with tab1:
             soup = BeautifulSoup(response.text, 'html.parser')
             # 全てのテキストを取得します
             html = ' '.join(map(lambda p: p.text, soup.find_all('p')))
+            max_tokens = 4000
+            html = [html[i : i + max_tokens] for i in range(0, len(html), max_tokens)][0]
             if social_media == 'Twitter':
              prompt = "商品を説明するPR投稿文を、文章を基にしてTwitter用に"+emoji_prompt+"日本語で140文字以内で"+str(num_elements) +"個考えてください。要素のすべてを入れる必要はありません。文章："+ html
             else: 
