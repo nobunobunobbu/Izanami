@@ -22,7 +22,7 @@ st.session_state.api_key = api_key
 uploaded_file = st.file_uploader("PDF ファイルをアップロードしてください", type="pdf")
 
 # モデル選択のセレクトボックス
-model = st.selectbox('GPTモデルの選択', ['gpt-3.5-turbo', 'gpt-4'],help="GPT4 での実行はChatGPT Plus への加入が必要です")
+model = st.selectbox('GPTモデルの選択', ['gpt-3.5-turbo', 'gpt-3.5-turbo-0613', 'gpt-4'],help="gpt-3.5-turbo-0613 :より長文のプロンプトを受け付けます。gpt-4:未対応となります。")
 
 # 実行ボタン
 run_button = st.button('実行')
