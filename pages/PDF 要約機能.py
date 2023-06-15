@@ -5,6 +5,8 @@ import textwrap
 from PIL import Image
 import common
 from datetime import datetime
+import docx
+from docx.shared import Pt
 
 image = Image.open('IZANAMI.png')
 
@@ -82,12 +84,21 @@ if run_button:
     # All explanations are displayed as a single text
     st.subheader("▼")
     st.write(' '.join(explanations))
-    with open('answer.txt', 'w',encoding='UTF-8') as f:
-                 f.write(' '.join(explanations))
-                 st.download_button(
-                 label="ダウンロード",
-                 data=open('answer.txt', 'rb'),
-                 file_name= date_str +'_PDF要約.txt',
-                 mime='text/plain',
-            )
+    doc = docx.Document()
+
+    # テキストを追加
+    doc.add_paragraph(' '.join(explanations))
+
+    # ドキュメントを保存
+    doc.save("answer.docx")
+
+    # 保存したドキュメントを読み込み、ダウンロードボタンのデータとして指定
+    with open('answer.docx', 'rb') as f:
+     st.download_button(
+        label="ダウンロード",
+        data=f.read(),
+        file_name=date_str +'_PDF要約.docx',
+        mime='application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    )
+
 
