@@ -84,8 +84,8 @@ if check_password():
         </iframe>
     """, unsafe_allow_html=True)
     with tab3:
-     with st.expander("Ver 1.22 (2023/06/14)"):
-      st.markdown('クリエイティブサポート機能を強化しました。  \n・より長文のプロンプトを受け付けるgpt-3.5-turbo-16k に対応。  \n ・テキストファイルダウンロードに対応。', unsafe_allow_html=True)
+     with st.expander("Ver 1.22 (2023/06/15)"):
+      st.markdown('クリエイティブサポート機能を強化しました。  \n・より長文のプロンプトを受け付けるgpt-3.5-turbo-16k に対応。  \n ・テキストファイルダウンロードに対応。  \n PDF 要約機能を強化しました。  \n ・word ファイルの出力に対応。', unsafe_allow_html=True)
      with st.expander("Ver 1.21 (2023/06/06)"):
       st.markdown('クリエイティブサポート機能を強化しました。  \n・画像生成機能を追加。webページ読み込みに対応  \n・投稿文作成でwebページ読み込みに対応', unsafe_allow_html=True)
      with st.expander("Ver 1.20 (2023/06/02)"):
