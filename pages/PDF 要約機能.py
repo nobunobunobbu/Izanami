@@ -84,10 +84,10 @@ if run_button:
     st.write(' '.join(explanations))
     with open('answer.txt', 'w',encoding='UTF-8') as f:
                  f.write(' '.join(explanations))
-                st.download_button(
-                label="ダウンロード",
-                data=open('answer.txt', 'rb'),
-                file_name= date_str +"_"+PDF要約.txt',
-                mime='text/plain',
+                 st.download_button(
+                 label="ダウンロード",
+                 data=open('answer.txt', 'rb'),
+                 file_name= date_str +"_"+PDF要約.txt',
+                 mime='text/plain',
             )
 
