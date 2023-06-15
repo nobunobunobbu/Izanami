@@ -7,6 +7,7 @@ import numpy as np
 import common
 import requests
 from bs4 import BeautifulSoup
+from datetime import datetime
 
 image = Image.open('IZANAMI.png')
 
@@ -18,6 +19,9 @@ common.check_login()
 st.title("クリエイティブサポート")
 
 tab1, tab2,tab3 = st.tabs(["投稿文作成","画像生成","薬機法/景表法判定"])
+
+now = datetime.now()
+date_str = now.strftime("%Y-%m-%d")
 
 with tab1:
  # ChatGPT のAPIキー入力用テキストボックス
@@ -105,6 +109,14 @@ with tab1:
                 answer = response.json()["choices"][0]["message"]["content"].strip()
                 st.subheader("回答:")
                 st.write(answer)
+                with open('answer.txt', 'w',encoding='UTF-8') as f:
+                 f.write(answer)
+                st.download_button(
+                label="ダウンロード",
+                data=open('answer.txt', 'rb'),
+                file_name= date_str +"_"+promotion +"_"+social_media +'投稿文.txt',
+                mime='text/plain',
+            )
 
 
             except KeyError:
@@ -174,6 +186,14 @@ with tab3:
                 answer2 = response2.json()["choices"][0]["message"]["content"].strip()
                 st.subheader("回答:")
                 st.write(answer2)
+                with open('answer.txt', 'w',encoding='UTF-8') as f:
+                 f.write(answer2)
+                st.download_button(
+                label="ダウンロード",
+                data=open('answer.txt', 'rb'),
+                file_name= date_str + "_" + law +'判定結果.txt',
+                mime='text/plain',
+            )
             except KeyError:
                 st.error("Failed to retrieve answer from the API response.")
         else:
