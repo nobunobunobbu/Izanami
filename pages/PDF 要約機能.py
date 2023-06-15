@@ -87,7 +87,7 @@ if run_button:
                  st.download_button(
                  label="ダウンロード",
                  data=open('answer.txt', 'rb'),
-                 file_name= date_str +"_"+PDF要約.txt',
+                 file_name= date_str +'_PDF要約.txt',
                  mime='text/plain',
             )
 
