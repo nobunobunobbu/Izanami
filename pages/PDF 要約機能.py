@@ -4,6 +4,7 @@ import requests
 import textwrap
 from PIL import Image
 import common
+from datetime import datetime
 
 image = Image.open('IZANAMI.png')
 
@@ -13,6 +14,9 @@ common.check_login()
 
 # Streamlit アプリケーションの設定
 st.title("PDF 要約機能")
+
+now = datetime.now()
+date_str = now.strftime("%Y-%m-%d")
 
 # ChatGPT のAPIキー入力用テキストボックス
 api_key = st.secrets["api_key"]["api_key"]
@@ -78,3 +82,12 @@ if run_button:
     # All explanations are displayed as a single text
     st.subheader("▼")
     st.write(' '.join(explanations))
+    with open('answer.txt', 'w',encoding='UTF-8') as f:
+                 f.write(' '.join(explanations))
+                st.download_button(
+                label="ダウンロード",
+                data=open('answer.txt', 'rb'),
+                file_name= date_str +"_"+PDF要約.txt',
+                mime='text/plain',
+            )
+
