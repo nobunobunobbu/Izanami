@@ -143,7 +143,7 @@ with tab2:
 
    elif option == "音声文字起こし・要約":
      uploaded_file = st.file_uploader("Upload an audio file", type=["wav", "mp3","m4a"])
-     model = st.selectbox('GPTモデルの選択', ['gpt-3.5-turbo','gpt-3.5-turbo-16k', 'gpt-4'],help="gpt-3.5-turbo-0613 :より長文のプロンプトを受け付けます。gpt-4:")
+     model = st.selectbox('GPTモデルの選択', ['gpt-3.5-turbo','gpt-3.5-turbo-16k', 'gpt-4'],help="gpt-3.5-turbo-16k :より長文のプロンプトを受け付けます。gpt-4:")
 
 
      if uploaded_file is not None:
