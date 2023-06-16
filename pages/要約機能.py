@@ -14,12 +14,11 @@ image = Image.open('IZANAMI.png')
 
 st.image(image,use_column_width=True)
 
-
+common.check_login()
 
 # Streamlit アプリケーションの設定
 st.title("要約機能")
 
-common.check_login()
 
 tab1, tab2 = st.tabs(["PDF 要約機能","音声文字起こし・要約機能"])
 
