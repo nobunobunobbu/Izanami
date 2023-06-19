@@ -110,7 +110,7 @@ with tab1:
                 st.subheader("回答:")
                 st.write(answer)
                 link="https://docs.google.com/spreadsheets/d/1-SctpUjpA-BgjAt3UbxzdLKqOx6a6XiDwrPQMq7xPPY/edit?usp=sharing"
-                st.markdown(f"知見共有シートへの転記は[こちら]({link})から")
+                st.markdown(f"【知見共有シートへの転記は[こちら]({link})から】")
                 with open('answer.txt', 'w',encoding='UTF-8') as f:
                  f.write(answer)
                 st.download_button(
