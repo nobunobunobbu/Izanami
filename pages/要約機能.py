@@ -188,7 +188,7 @@ with tab2:
                         ]
                     }
 
-                    chunks = textwrap.wrap(transcription, 2000)
+                    chunks = textwrap.wrap(transcription, 1800)
                     explanations = []
 
                     for chunk in chunks:
