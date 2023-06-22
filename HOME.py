@@ -85,6 +85,8 @@ if check_password():
         </iframe>
     """, unsafe_allow_html=True)
     with tab4:
+     with st.expander("Ver 1.4 (2023/06/22)"):
+      st.markdown('HOME にAI チャット機能を実装しました。', unsafe_allow_html=True)
      with st.expander("Ver 1.31 (2023/06/16)"):
       st.markdown('要約機能を強化しました。  \n・音声文字起こし・要約機能の追加。', unsafe_allow_html=True)
      with st.expander("Ver 1.22 (2023/06/15)"):
