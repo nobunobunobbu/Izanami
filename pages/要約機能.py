@@ -110,117 +110,120 @@ with tab1:
     )
      
 with tab2:
-   option = st.selectbox("機能の選択", ["動画から音声を抜き出す", "音声文字起こし・要約"])
+    option = st.selectbox("機能の選択", ["動画から音声を抜き出す", "音声文字起こし・要約"])
 
-   if option == "動画から音声を抜き出す":
-    # Upload video file
-    st.warning("機能利用停止中です。")
-    uploaded_file = st.file_uploader("Upload a video file", type=["mp4", "mov", "avi"])
+    if option == "動画から音声を抜き出す":
+        # Upload video file
+        uploaded_file = st.file_uploader("Upload a video file", type=["mp4", "mov", "avi"])
 
-    if uploaded_file is not None:
-        if st.button('実行',key="botton"):
-            # Save the uploaded video file locally
-            with open('temp_video.mp4', 'wb') as f:
-                f.write(uploaded_file.getbuffer())
+        if uploaded_file is not None:
+            if st.button('実行', key="botton"):
+                # Save the uploaded video file locally
+                with open('temp_video.mp4', 'wb') as f:
+                    f.write(uploaded_file.getbuffer())
 
-            # Convert video to audio using pydub
-            video = AudioSegment.from_file('temp_video.mp4')
-            video.export("temp_audio.wav", format="wav")
+                # Convert video to audio using pydub
+                video = AudioSegment.from_file('temp_video.mp4')
+                video.export("temp_audio.wav", format="wav")
 
-            # Download button for wav file
-            with open("temp_audio.wav", "rb") as f:
-                bytes = f.read()
-            st.download_button(
-                label="Download audio",
-                data=bytes,
-                file_name="audio.wav",
-                mime="audio/wav",
-            )
+                # Download button for wav file
+                with open("temp_audio.wav", "rb") as f:
+                    bytes = f.read()
+                st.download_button(
+                    label="Download audio",
+                    data=bytes,
+                    file_name="audio.wav",
+                    mime="audio/wav",
+                )
 
-            # Clean up temporary files
-            os.remove("temp_video.mp4")
-            os.remove("temp_audio.wav")
+                # Clean up temporary files
+                os.remove("temp_video.mp4")
+                os.remove("temp_audio.wav")
 
+    elif option == "音声文字起こし・要約":
+        uploaded_file = st.file_uploader("Upload an audio file", type=["wav", "mp3", "m4a"])
+        model = st.selectbox('GPTモデルの選択', ['gpt-3.5-turbo', 'gpt-3.5-turbo-16k', 'gpt-4'],
+                             help="gpt-3.5-turbo-16k :より長文のプロンプトを受け付けます。gpt-4:")
 
-   elif option == "音声文字起こし・要約":
-     uploaded_file = st.file_uploader("Upload an audio file", type=["wav", "mp3","m4a"])
-     model = st.selectbox('GPTモデルの選択', ['gpt-3.5-turbo','gpt-3.5-turbo-16k', 'gpt-4'],help="gpt-3.5-turbo-16k :より長文のプロンプトを受け付けます。gpt-4:")
+        if uploaded_file is not None:
+            if st.button('実行', key="botton2"):
+                # Load the uploaded file into memory
+                audio_data = uploaded_file.read()
 
+                # Create a request for the OpenAI's Whisper API
+                url = "https://api.openai.com/v1/audio/transcriptions"
+                headers = {
+                    "Authorization": f"Bearer {api_key}",  # Replace with your OpenAI API key
+                }
 
-     if uploaded_file is not None:
-         if st.button('実行',key="botton2"):
-            # Load the uploaded file into memory
-            audio_data = uploaded_file.read()
+                # Prepare multipart encoded data
+                files = {
+                    "file": ("audio.mp3", audio_data, "audio/mpeg"),  # Modify as needed
+                }
 
-            # Create a request for the OpenAI's Whisper API
-            url = "https://api.openai.com/v1/audio/transcriptions"
-            headers = {
-                "Authorization": f"Bearer {api_key}",  # Replace with your OpenAI API key
-            }
-            
-            # Prepare multipart encoded data
-            files = {
-                "file": ("audio.mp3", audio_data, "audio/mpeg"),  # Modify as needed
-            }
-            
-            # Model data
-            data = {
-                "model": "whisper-1"
-            }
+                # Model data
+                data = {
+                    "model": "whisper-1"
+                }
 
-            # Send a POST request and get the response
-            response = requests.post(url, headers=headers, files=files, data=data)
+                # Send a POST request and get the response
+                response = requests.post(url, headers=headers, files=files, data=data)
 
-            if response.status_code == 200:
-                transcription = response.json()['text']
-                with st.expander("文字起こし結果"):
+                if response.status_code == 200:
+                    transcription = response.json()['text']
+                    with st.expander("文字起こし結果"):
                         st.write(transcription)
 
-                # Use the chat-based GPT-3 API to summarize the transcription
-                headers = {
-                    "Authorization": f"Bearer {api_key}",
-                    "Content-Type": "application/json"
-                }
-                data = {
-                    "model": model,
-                    "messages": [
-                        {
-                            "role": "system",
-                            "content": "You are a helpful assistant."
-                        },
-                        {
+                    headers = {
+                        "Authorization": f"Bearer {api_key}",
+                        "Content-Type": "application/json"
+                    }
+                    data = {
+                        "model": model,
+                        "messages": [
+                            {
+                                "role": "system",
+                                "content": "You are a helpful assistant."
+                            }
+                        ]
+                    }
+
+                    chunks = textwrap.wrap(transcription, 2000)
+                    explanations = []
+
+                    for chunk in chunks:
+                        data["messages"].append({
                             "role": "user",
-                            "content": f"以下の文章を分かりやすくマークダウン形式で要約して: {transcription}"
-                        }
-                    ]
-                }
+                            "content": f"以下の文章を分かりやすくマークダウン形式で要約して: {chunk}"
+                        })
 
-                response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=data)
-                if response.status_code == 200:
-                    response_data = response.json()
-                    summarized_text = response_data['choices'][0]['message']['content']
+                        response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers,
+                                                 json=data)
+
+                        if response.status_code == 200:
+                            response_data = response.json()
+                            explanation = response_data['choices'][0]['message']['content']
+                            explanations.append(explanation)
+                        else:
+                            st.write("Error in summarization. Details:", response.json())
+
+                    # 最後のユーザーメッセージを削除
+                    data["messages"].pop()
+
+                    summarized_text = ' '.join(explanations)
                     st.subheader("要約：")
-                    st.write( summarized_text)
+                    st.write(summarized_text)
+
+                    doc = docx.Document()
+                    doc.add_paragraph(summarized_text)
+                    doc.save("answer.docx")
+
+                    with open('answer.docx', 'rb') as f:
+                        st.download_button(
+                            label="ダウンロード",
+                            data=f.read(),
+                            file_name=date_str + '_文字起こし要約.docx',
+                            mime='application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                        )
                 else:
-                    st.write("Error in summarization. Details:", response.json())
-
-            else:
-                st.write("Error in transcription. Details:", response.json())
-
-            doc = docx.Document()
-    # テキストを追加
-            doc.add_paragraph(' '.join(summarized_text))
-
-    # ドキュメントを保存
-            doc.save("answer.docx")
-
-    # 保存したドキュメントを読み込み、ダウンロードボタンのデータとして指定
-            with open('answer.docx', 'rb') as f:
-             st.download_button(
-        label="ダウンロード",
-        data=f.read(),
-        file_name=date_str +'_文字起こし要約.docx',
-        mime='application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    )
-
-
+                    st.write("文字起こしでエラーが発生しました。詳細:", response.json())
