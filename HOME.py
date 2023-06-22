@@ -113,10 +113,6 @@ if check_password():
      if "messages" not in st.session_state:
       st.session_state["messages"] = [{"role": "assistant", "content": "何かお困りですか？"}]
 
-     if st.button("リセット"):
-         st.session_state["messages"] = [{"role": "assistant", "content": "何かお困りですか？"}]
-         user_input_placeholder = st.empty()
-
      with st.form("chat_input", clear_on_submit=True):
       a, b = st.columns([4, 1])
       user_input = a.text_input(
