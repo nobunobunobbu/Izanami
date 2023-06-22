@@ -114,6 +114,7 @@ with tab2:
 
    if option == "動画から音声を抜き出す":
     # Upload video file
+    st.warning("機能利用停止中です。")
     uploaded_file = st.file_uploader("Upload a video file", type=["mp4", "mov", "avi"])
 
     if uploaded_file is not None:
