@@ -108,9 +108,13 @@ if check_password():
      st.session_state.api_key = api_key
 
      st.title("💬 ChatGPT")
+     
 #openai.api_key = st.secrets.openai_api_key
      if "messages" not in st.session_state:
       st.session_state["messages"] = [{"role": "assistant", "content": "何かお困りですか？"}]
+
+     if st.button("リセット"):
+         st.session_state["messages"] = [{"role": "assistant", "content": "何かお困りですか？"}]
 
      with st.form("chat_input", clear_on_submit=True):
       a, b = st.columns([4, 1])
