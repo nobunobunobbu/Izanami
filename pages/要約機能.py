@@ -141,6 +141,7 @@ with tab2:
                 os.remove("temp_audio.wav")
 
     elif option == "音声文字起こし・要約":
+        st.warning("最大尺：15分程度。それ以上は分割してアップロードしてください。")
         uploaded_file = st.file_uploader("Upload an audio file", type=["wav", "mp3", "m4a"])
         model = st.selectbox('GPTモデルの選択', ['gpt-3.5-turbo', 'gpt-3.5-turbo-16k', 'gpt-4'],
                              help="gpt-3.5-turbo-16k :より長文のプロンプトを受け付けます。gpt-4:")
