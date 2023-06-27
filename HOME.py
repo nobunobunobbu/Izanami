@@ -61,7 +61,7 @@ if check_password():
     with tab2:
      st.write("機能説明")
      with st.expander('要約機能'):
-         st.write("アップロードしたPDF ファイルを読み込み、ChatGPT を用いてわかりやすく解説します。 \n 音声文字起こし・要約する機能も備えています。")
+         st.write("アップロードしたPDF ファイルを読み込み、ChatGPT を用いてわかりやすく解説します。  \n 音声文字起こし・要約する機能も備えています。")
      with st.expander('クリエイティブサポート'):
          st.write("Twitter・Instagram 用の投稿文を作成します。  \n 画像生成機能を実装しました。  \n また、薬機法・景表法判定もサポートしています。テキストまたは画像内のテキストを読み込んで判定可能です。 ")
      with st.expander('ポジネガ判定'):
