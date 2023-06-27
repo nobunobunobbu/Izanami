@@ -205,8 +205,7 @@ with tab2:
                             response_data = response.json()
                             explanation = response_data['choices'][0]['message']['content']
                             explanations.append(explanation)
-                        else:
-                            st.write("Error in summarization. Details:", response.json())
+                     
 
                     # 最後のユーザーメッセージを削除
                     data["messages"].pop()
