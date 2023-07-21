@@ -55,10 +55,10 @@ def check_password():
         return True
 
 if check_password():
-    tab1, tab2, tab3 , tab4 = st.tabs(["チャット機能","機能説明", "ご意見・ご要望", "バージョン履歴"])
+    tab1, tab2, tab3  = st.tabs([,"機能説明", "ご意見・ご要望", "バージョン履歴"])
 
 # with tab1:
-    with tab2:
+    with tab1:
      st.write("機能説明")
      with st.expander('要約機能'):
          st.write("アップロードしたPDF ファイルを読み込み、ChatGPT を用いてわかりやすく解説します。  \n 音声文字起こし・要約する機能も備えています。")
@@ -77,14 +77,17 @@ if check_password():
 
 
 
-    with tab3:
+    with tab2:
      st.write("""
         <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScdZ7GQtJbOq9keBHqWbfkEiUoo60vOmSZznBbwvq84NmV76A/viewform?embedded=true" 
             width="640" height="1108" frameborder="0" marginheight="0" marginwidth="0">
             読み込んでいます…
         </iframe>
     """, unsafe_allow_html=True)
-    with tab4:
+        
+    with tab3:
+     with st.expander("Ver 1.5 (2023/07/21)"):
+      st.markdown('AI チャット機能のUI をアップデートし、Chatbot機能に移行しました。', unsafe_allow_html=True)
      with st.expander("Ver 1.4 (2023/06/22)"):
       st.markdown('HOME にAI チャット機能を実装しました。', unsafe_allow_html=True)
      with st.expander("Ver 1.31 (2023/06/16)"):
@@ -102,37 +105,4 @@ if check_password():
      with st.expander("Ver 1.00 (2023/05/23)"):
       st.markdown('Izanami の以下機能をリリースしました。  \n・ポジネガ判定  \n・文章類似度測定  \n・未来予測forMeta β版  \n・未来予測forTwitter β版  \n ・画像類似度測定', unsafe_allow_html=True)
 
-    with tab1:
- # ChatGPT のAPIキー入力用テキストボックス
-     api_key = st.secrets["api_key"]["api_key"]
-     st.session_state.api_key = api_key
-
-     st.title("💬 ChatGPT")
-     
-#openai.api_key = st.secrets.openai_api_key
-     if "messages" not in st.session_state:
-      st.session_state["messages"] = [{"role": "assistant", "content": "何かお困りですか？"}]
-
-     with st.form("chat_input", clear_on_submit=True):
-      a, b = st.columns([4, 1])
-      user_input = a.text_input(
-        label="Your message:",
-        placeholder="ChatGPT に訊きたいことを入力",
-        label_visibility="collapsed",
-    )
-      b.form_submit_button("送信", use_container_width=True)
-
-     for msg in st.session_state.messages:
-      message(msg["content"], is_user=msg["role"] == "user")
-
-     if user_input and not api_key:
-       st.info("Please add your OpenAI API key to continue.")
     
-     if user_input and api_key:
-       openai.api_key = api_key
-       st.session_state.messages.append({"role": "user", "content": user_input})
-       message(user_input, is_user=True)
-       response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=st.session_state.messages)
-       msg = response.choices[0].message
-       st.session_state.messages.append(msg)
-       message(msg.content)
