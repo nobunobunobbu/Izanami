@@ -55,7 +55,7 @@ def check_password():
         return True
 
 if check_password():
-    tab1, tab2, tab3  = st.tabs([,"機能説明", "ご意見・ご要望", "バージョン履歴"])
+    tab1, tab2, tab3  = st.tabs(["機能説明", "ご意見・ご要望", "バージョン履歴"])
 
 # with tab1:
     with tab1:
