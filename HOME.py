@@ -58,9 +58,9 @@ if check_password():
     tab1, tab2, tab3  = st.tabs(["機能説明", "ご意見・ご要望", "バージョン履歴"])
 
 # with tab1:
-    st.info("チャットボット機能はサイドバー「Chatbot」に移行しました。")
     with tab1:
      st.write("機能説明")
+     st.info("チャットボット機能はサイドバー「Chatbot」に移行しました。")
      with st.expander('要約機能'):
          st.write("アップロードしたPDF ファイルを読み込み、ChatGPT を用いてわかりやすく解説します。  \n 音声文字起こし・要約する機能も備えています。")
      with st.expander('クリエイティブサポート'):
