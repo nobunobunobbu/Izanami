@@ -58,7 +58,7 @@ if check_password():
     tab1, tab2, tab3  = st.tabs(["機能説明", "ご意見・ご要望", "バージョン履歴"])
 
 # with tab1:
-    st.information("チャットボット機能はサイドバー「Chatbot」に移行しました。")
+    st.info("チャットボット機能はサイドバー「Chatbot」に移行しました。")
     with tab1:
      st.write("機能説明")
      with st.expander('要約機能'):
