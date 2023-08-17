@@ -225,6 +225,17 @@ with tab2:
                             file_name=date_str + '_文字起こし要約.docx',
                             mime='application/vnd.openxmlformats-officedocument.wordprocessingml.document',
                         )
+                    doc_transcription = docx.Document()
+                    doc_transcription.add_paragraph(transcription)
+                    doc_transcription.save("audio_transcription.docx")
+                    with open('audio_transcription.docx', 'rb') as f:
+                        st.download_button(
+                            label="音声文字起こし結果のダウンロード",
+                            data=f.read(),
+                            file_name=date_str + '_音声文字起こし.docx',
+                            mime='application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                        )
+
                                     
                 else:
                     st.write("文字起こしでエラーが発生しました。詳細:", response.json())
