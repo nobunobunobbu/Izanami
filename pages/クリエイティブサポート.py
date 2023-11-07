@@ -281,7 +281,7 @@ with tab2:
 
             # DALL-Eリクエストの実装
             payload = {
-                'model'='dall-e-3',
+                'model':'dall-e-3',
                 'n': num_elements,
                 'size' : '1024x1024',
                 'prompt': chat_gpt_response
