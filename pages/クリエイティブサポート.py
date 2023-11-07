@@ -299,7 +299,7 @@ with tab2:
             image_response = requests.post(dall_e_url, headers=headers, json=payload)
 
             image_response_json = image_response.json()
-            st.write("Response JSON:", image_response_json)
+
 
        
       
