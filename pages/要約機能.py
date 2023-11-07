@@ -36,7 +36,7 @@ with tab1:
  uploaded_file = st.file_uploader("PDF ファイルをアップロードしてください", type="pdf")
 
  # モデル選択のセレクトボックス
- model = st.selectbox('GPTモデルの選択', ['gpt-3.5-turbo', 'gpt-3.5-turbo-16k', 'gpt-4-0613'],help="gpt-3.5-turbo-16k :より長文のプロンプトを受け付けます。gpt-4:未対応となります。")
+ model = st.selectbox('GPTモデルの選択', ['gpt-3.5-turbo', 'gpt-3.5-turbo-16k', 'gpt-4-1106-preview'],help="gpt-3.5-turbo-16k :より長文のプロンプトを受け付けます。gpt-4:未対応となります。")
 
  # 実行ボタン
  run_button = st.button('実行')
@@ -143,7 +143,7 @@ with tab2:
     elif option == "音声文字起こし・要約":
         st.warning("最大尺：15分程度。それ以上は分割してアップロードしてください。")
         uploaded_file = st.file_uploader("Upload an audio file", type=["wav", "mp3", "m4a"])
-        model = st.selectbox('GPTモデルの選択', ['gpt-3.5-turbo', 'gpt-3.5-turbo-16k', 'gpt-4'],
+        model = st.selectbox('GPTモデルの選択', ['gpt-3.5-turbo', 'gpt-3.5-turbo-16k', 'gpt-4-1106-preview'],
                              help="gpt-3.5-turbo-16k :より長文のプロンプトを受け付けます。gpt-4:")
 
         if uploaded_file is not None:
