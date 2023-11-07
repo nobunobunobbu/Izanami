@@ -10,6 +10,7 @@ from docx.shared import Pt
 from pydub import AudioSegment
 import os
 from io import BytesIO
+import base64
 
 image = Image.open('IZANAMI.png')
 
