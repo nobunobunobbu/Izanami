@@ -87,6 +87,8 @@ if check_password():
     """, unsafe_allow_html=True)
         
     with tab3:
+     with st.expander("Ver 2.0 (2023/11/07)"):
+      st.markdown('・各種AI 機能でGPT-4-turbo を利用できるようになりました。  \n ・画像生成でDALL-E3 に対応しました。', unsafe_allow_html=True)
      with st.expander("Ver 1.6 (2023/07/26)"):
       st.markdown('各種AI 機能でGPT-4 を利用できるようになりました。', unsafe_allow_html=True)
      with st.expander("Ver 1.5 (2023/07/21)"):
