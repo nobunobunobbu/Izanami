@@ -20,7 +20,7 @@ common.check_login()
 st.title("要約機能")
 
 
-tab1, tab2 = st.tabs(["PDF 要約機能","音声文字起こし・要約機能"])
+tab1, tab2,tab3 = st.tabs(["PDF 要約機能","音声文字起こし・要約機能","画像分析機能"])
 
 now = datetime.now()
 date_str = now.strftime("%Y-%m-%d")
@@ -239,3 +239,62 @@ with tab2:
                                     
                 else:
                     st.write("文字起こしでエラーが発生しました。詳細:", response.json())
+
+
+with tab3:
+    # ユーザーから画像ファイルをアップロード
+    uploaded_image = st.file_uploader("画像ファイルをアップロードしてください", type=["png", "jpg", "jpeg"])
+
+    # 実行ボタン
+    analyze_button = st.button('画像分析')
+
+    if analyze_button:
+        if uploaded_image is not None and api_key != "":
+            # アップロードされた画像を読み込む
+            image = Image.open(uploaded_image)
+            st.image(image, caption='Uploaded Image', use_column_width=True)
+
+            # OpenAI APIを使用して画像からテキストを生成
+            headers = {
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json"
+            }
+            # 画像をBASE64にエンコード（APIで必要）
+            import base64
+            from io import BytesIO
+            buffered = BytesIO()
+            image.save(buffered, format="JPEG")
+            img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
+
+            data = {
+                "model": "gpt-4-vision-preview",
+                "messages": [
+                    {
+                        "role": "user",
+                        "content": [
+                            {
+                                "type": "image_base64",
+                                "data": img_str
+                            },
+                            {
+                                "type": "text",
+                                "text": "この画像について説明してください。"
+                            }
+                        ]
+                    }
+                ]
+            }
+            response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=data)
+
+            if response.status_code == 200:
+                try:
+                    analysis_result = response.json()["choices"][0]["message"]["content"]
+                    st.write(analysis_result)
+                except KeyError:
+                    st.error("APIからの解析結果の取得に失敗しました。")
+            else:
+                try:
+                    error_details = response.json()
+                except ValueError:
+                    error_details = "追加情報はありません。"
+                st.error(f"APIリクエストが失敗しました。ステータスコード: {response.status_code}。詳細: {error_details}")
