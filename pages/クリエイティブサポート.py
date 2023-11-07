@@ -299,7 +299,9 @@ with tab2:
             image_response = requests.post(dall_e_url, headers=headers, json=payload)
 
             image_response_json = image_response.json()
-           
+            st.write("Response JSON:", image_response_json)
+
+       
       
             # 生成された画像のURLを返す
             image_url =  [result['url'] for result in image_response_json['data']]
