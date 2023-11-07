@@ -274,10 +274,7 @@ with tab3:
             "messages": [
                 {
                     "role": "user",
-                    "content": {
-                        "type": "image_url",
-                        "image_url": f"data:image/jpeg;base64,{img_str}"
-                    }
+                    "content": f"data:image/jpeg;base64,{img_str}"
                 },
                 {
                     "role": "user",
