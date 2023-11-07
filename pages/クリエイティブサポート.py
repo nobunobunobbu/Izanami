@@ -209,7 +209,6 @@ with tab2:
     api_key = st.secrets["api_key"]["api_key"]
     st.session_state.api_key = api_key
     
-    st.warning("生成できる画像数は15枚/月 となります")
     promotion = st.text_input("商材名",key="promotion2")
 
     content_gen = st.selectbox('コンテンツ生成方法', ['テキストから生成', 'リンクから生成'],key="gen")
