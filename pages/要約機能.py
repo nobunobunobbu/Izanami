@@ -252,7 +252,7 @@ with tab3:
         if uploaded_image is not None and api_key != "":
             # アップロードされた画像を読み込む
             image = Image.open(uploaded_image)
-             if image.mode == 'RGBA':
+            if image.mode == 'RGBA':
                 image = image.convert('RGB')
             st.image(image, caption='Uploaded Image', use_column_width=True)
 
