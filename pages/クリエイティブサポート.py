@@ -231,7 +231,7 @@ with tab2:
      question = st.text_input('URLを入力してください',key="inputurl")
 
 
-    num_elements = st.number_input("出力したい画像数を入力してください", min_value=0, value=1, step=1)
+    num_elements = st.number_input("出力可能な画像数は現在1回1枚です。", min_value=1, value=1, step=1)
 
     model = st.selectbox('GPTモデルの選択', ['gpt-3.5-turbo','gpt-3.5-turbo-16k',  'gpt-4-1106-preview'], help="gpt-3.5-turbo-16k :より長文のプロンプトを受け付けます。gpt-4:未対応となります。" , key="model_select2")
 
