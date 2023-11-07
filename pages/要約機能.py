@@ -9,6 +9,7 @@ import docx
 from docx.shared import Pt
 from pydub import AudioSegment
 import os
+from io import BytesIO
 
 image = Image.open('IZANAMI.png')
 
@@ -250,6 +251,8 @@ with tab3:
 
     if analyze_button:
         if uploaded_image is not None and api_key != "":
+            bytes_data = uploaded_image.getvalue()
+            base64_image = base64.b64encode(bytes_data).decode('utf-8')
             # アップロードされた画像を読み込む
             image = Image.open(uploaded_image)
             if image.mode == 'RGBA':
