@@ -274,7 +274,7 @@ with tab3:
             "messages": [
                 {
                     "role": "user",
-                    "content": f"data:image/jpeg;base64,{img_str}"
+                     "content": ["data:image/jpeg;base64," + img_str] 
                 },
                 {
                     "role": "user",
