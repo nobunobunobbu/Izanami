@@ -33,7 +33,7 @@ with tab1:
  content_gen = st.selectbox('コンテンツ生成方法', ['テキストから生成', 'リンクから生成'])
 
  if content_gen == 'テキストから生成':
-  question = st.text_area("商材の特長")
+  question = st.text_area("商材の特長・投稿文の例")
 
   col1, col2 = st.columns(2)
 
